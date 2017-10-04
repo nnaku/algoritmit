@@ -1,0 +1,28 @@
+https://en.wikipedia.org/wiki/Big_O_notation
+
+O(log n)
+	logarithmic
+	Alkiota haetaan aina taulukon keskeltä,
+	ja tuloksen mukaan siirrytään sen puolikkaan keskikohtaan jossa alkion tulisi olla.
+	Jokainen hakuaskel puolittaa taulukon josta alkiota haetaan.
+	https://en.wikipedia.org/wiki/Binary_search_algorithmlogaritminen
+		
+O(nlogn)
+	linearithmic
+	
+	
+	
+O(n2)
+	quadratic
+	Viereisien alkoiden vertaulu.
+	Tietojoukon koon kasvaessa algoritmin suoritusaika lähestyy,
+	mutta ei koskaan lähestymissuunnasta riippuen ylitä tai alita, asymptoottista rajaa O(n2).
+
+O(n3)		polynomial
+
+O(vakion)	exponential
+	
+	
+	
+	Kasvukäyrä on eksponentiaalinen
+	
