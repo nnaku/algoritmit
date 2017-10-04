@@ -10,7 +10,8 @@
  * @author kamaj
  */
 public class Node {
-    private String data;
+
+	private String data;
     private BinaryTree left;
     private BinaryTree right;
 
@@ -26,6 +27,9 @@ public class Node {
     public String getData() {
         return data;
     }
+    public void setData(String data) {
+		this.data = data;
+	}
     public BinaryTree left() {
         return left;
     }
