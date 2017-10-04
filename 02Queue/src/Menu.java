@@ -21,13 +21,9 @@ public class Menu {
 //printMenu alkaa------------------------------------------------------------------
         private static void printMenu() {
                 char select;
-<<<<<<< HEAD
-                Queue s = new Queue(); // pino-olio
-                String data; // Pinon data-kenttä
-=======
                 Queue q = new Queue(); // jono-olio
                 String data; // Jonon data-kenttä
->>>>>>> 1926390dec322a785648105fa9628d2bff75f075
+
                 do {
 
                         System.out.println("\n\t\t\t1. Alkion lisääminen.");
