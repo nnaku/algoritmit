@@ -41,15 +41,15 @@ public class BinaryHeap {
                 
 	}
 	
-//  Kasaa kasatessa, alkio sijoitetaan seuraavaan vapaasee (viimeiseen) alkioon.	
-//
-//           ____1____
-//        __2__     __3__
-//       4     5   6     7
-//
-//	Jokaisen alkion indeksi jaettuna kahteen, osoittaa (kokonaisluvulla) tämän alkion vanhempaan.
-//	Tätä hyväksi käyttäen, data kuljetetaan kasan juurta kohti, niin kauan kuin vahemman avain on pienempi.
-//	
+	// Kasaa kasatessa, alkio sijoitetaan seuraavaan vapaasee (viimeiseen) alkioon.	
+	//
+	//        ____1____
+	//     __2__     __3__
+	//    4     5   6     7
+	//
+	// Jokaisen alkion indeksi jaettuna kahteen, osoittaa (kokonaisluvulla) tämän alkion vanhempaan.
+	// Tätä hyväksi käyttäen, data kuljetetaan kasan juurta kohti, niin kauan kuin vahemman avain on pienempi.
+	//	
 	
 	public void bubbleUp(){
 		int pos = position-1;
