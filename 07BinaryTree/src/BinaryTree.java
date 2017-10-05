@@ -1,130 +1,161 @@
 public class BinaryTree {
-
-	private Node root;
-
+	public Node root;
 	public BinaryTree() {
-		root = null;
+		this.root = null;
 	}
 
-	public BinaryTree(String rootValue, Node parent) {
-		root = new Node(rootValue);
-		root.setParent(parent);
-	}
-
-	public void setLeft(BinaryTree tree) {
-		root.setLeft(tree);
-		tree.root.setParent(this.root);
-	}
-
-	public void setRight(BinaryTree tree) {
-		root.setRight(tree);
-		tree.root.setParent(this.root);
-	}
-
-	public void insert(String aData) {
-		int aDatalength = aData.length();
-		if (root == null) {
-			root = new Node(aData);
-		} else if (root.getData().length() > aDatalength) {
-			if (root.left() != null) {
-				root.left().insert(aData);
+	public Node find(int data) {
+		Node current = root;
+		while (current != null) {
+			if (current.data == data) {
+				return current;
+			} else if (data < current.data) {
+				current = current.left;
 			} else {
-				root.setLeft(new BinaryTree(aData,root));
-			}
-		} else {
-			if (root.right() != null) {
-				root.right().insert(aData);
-			} else {
-				root.setRight(new BinaryTree(aData,root));
+				current = current.right;
 			}
 		}
-
+		return null;
 	}
 
-	public BinaryTree find(String aData) {
-		int aDatalength = aData.length();
-		if (root == null || root.getData().equals(aData)) {
-			return this;
-		} else if (root.getData().length() > aDatalength) {
-			if (root.left() != null) {
-				return root.left().find(aData);
-			} else {
-				return null;
-			}
-		} else {
-			if (root.right() != null) {
-				return root.right().find(aData);
-			} else {
-				return null;
-			}
-
-		}
-	}
-
-	public BinaryTree delete(String aData) {
+	public void addNode(int data) {
+		Node newNode = new Node(data);
 		if (root == null) {
-			return null;
-		} else if (root.getData().length() > aData.length()) {
-			root.setLeft(root.left().delete(aData));
-		} else if (root.getData().length() < aData.length()) {
-			root.setRight(root.right().delete(aData));
-		} else {
-			if (!root.getData().equals(aData)) {
-				if (root.right() != null) {
-					root.setRight(root.right().delete(aData));
+			root = newNode;
+			return;
+		}
+		Node current = root;
+		Node parent = null;
+		
+		while (true) {
+			parent = current;
+			if (data < current.data) {
+				current = current.left;
+				if (current == null) {
+					parent.left = newNode;
+					return;
 				}
-				return null;
 			} else {
-				Node temp = root;
-				if (root.left() != null && root.right() != null) {
-					Node minNode = findMin(root.right().root);
-					String data = minNode.getData();
-					root = new Node(data, root, temp.left(), temp.right());
-					root.right().delete(data);
-				} else if (root.left() != null && root.right() == null) {
-					root = new Node(aData, root,temp.left(), null);
-				} else if (root.right() != null && root.left() == null) {
-					String data = findMin(root.right().root).getData();
-					root = new Node(data, root, null, temp.right());
-					root.right().delete(root.getData());
-				} else
-					root = null;
+				current = current.right;
+				if (current == null) {
+					parent.right = newNode;
+					return;
+				}
 			}
-		}
-		return this;
-	}
-
-	public Node findMin(Node root) {
-		if (root.left().equals(null))
-			return root;
-		else {
-			return findMin(root.left().root);
 		}
 	}
 
-	public int getTreeHeight(BinaryTree tree) {
-		int l = 0;
-		int r = 0;
-		if (null == tree.root.left() && null == tree.root.right()) {
-			return 0;
-		} else {
-			if (null != tree.root.left()) {
-				l = getTreeHeight(tree.root.left());
+	public boolean delete(int data) {
+		Node parent = root;
+		Node current = root;
+		boolean isLeftChild = false;
+		while (current.data != data) {
+			parent = current;
+			if (data < current.data) {
+				isLeftChild = true;
+				current = current.left;
+			} else {
+				isLeftChild = false;
+				current = current.right;
 			}
-			if (null != tree.root.right()) {
-				r = getTreeHeight(tree.root.right());
+			if (current == null) {
+				return false;
 			}
-			return Math.max(l, r) + 1;
 		}
+
+		// Lehti
+		if (current.left == null && current.right == null) {
+			if (current == root) {
+				root = null;
+			}
+			if (isLeftChild == true) {
+				parent.left = null;
+			} else {
+				parent.right = null;
+			}
+		}
+		// Jos yksi lapsi
+		// Oikealla ?
+		else if (current.right == null) {
+			if (current == root) {
+				root = current.left;
+			} else if (isLeftChild) {
+				parent.left = current.left;
+			} else {
+				parent.right = current.left;
+			}
+		// Vasemmalla?
+		} else if (current.left == null) {
+			if (current == root) {
+				root = current.right;
+			} else if (isLeftChild) {
+				parent.left = current.right;
+			} else {
+				parent.right = current.right;
+			}
+		// Jos kaksi lasta
+		} else if (current.left != null && current.right != null) {
+			Node follower = follower(current);
+			if (current == root) {
+				root = follower;
+			} else if (isLeftChild) {
+				parent.left = follower;
+			} else {
+				parent.right = follower;
+			}
+			follower.left = current.left;
+		}
+		return true;
+	}
+	// Poistettavan solmun jälkipyykki, kahden lapsen tapauksessa.
+	private Node follower(Node deleleNode) {
+		Node follower = null;
+		Node parent = null;
+		// Ensin oikealle.
+		Node current = deleleNode.right;
+		// Loopataan niin pitkään vasemmalle, että pienin avain löytyy.
+		while (current != null) {
+			parent = follower;
+			follower = current;
+			current = current.left;
+		}
+		
+		if (follower != deleleNode.right) {
+			parent.left = follower.right;
+			follower.right = deleleNode.right;
+		}
+		return follower;
 	}
 
-	public void preOrder() {
-		if (root != null) {
-			System.out.println(root.getData() + ",");
-			if (root.left() != null)
-				root.left().preOrder();
-			if (root.right() != null)
-				root.right().preOrder();
+	// Return height of node!
+	public int height(Node node) {
+		if (node == null)
+			return -1;
+		return 1 + Math.max(height(node.left), height(node.right));
+	}
+	// Postorder print.
+	public void toPostorder(Node node) {
+		if (node == null)
+			return;
+		toPostorder(node.left);
+		toPostorder(node.right);
+		System.out.print("|" + node.data);
+	}
+	// Inorder print.
+	public void toInorder(Node node) {
+		if (node == null)
+			return;
+		toInorder(node.left);
+		System.out.print("|" + node.data);
+		toInorder(node.right);
+	}
+	// Preorder print.
+	public void toPreorder(Node node) {
+		if (node == null) {
+			return;
 		}
+		System.out.print("|" + node.data);
+		toPreorder(node.left);
+		toPreorder(node.right);
 	}
 }
