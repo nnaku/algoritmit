@@ -37,10 +37,6 @@ public class Menu {
 			select = Lue.merkki();
 			switch (select) {
 			case '1':
-				// System.out.println("Anna uusi avain (merkkijono)");
-				// data = new String(Lue.rivi());
-				// tree.insert(data);
-
 				tree.insert("eeeee");		// 5
 				tree.insert("ccc");			// 3
 				tree.insert("a");			// 1
@@ -51,17 +47,17 @@ public class Menu {
 				tree.insert("hhhhhhhh");	// 8
 				tree.insert("ffffff");		// 6
 				tree.insert("jjjjjjjjjj");	// 10
-				
+				System.out.println("Anna uusi avain (merkkijono)");
+				data = new String(Lue.rivi());
+				tree.insert(data);
+
 				
 //				tree.insert("dddd");
-//				
 //				tree.insert("ccc");
 //				tree.insert("ggggggg");
-//				
 //				tree.insert("bb");
 //				tree.insert("ffffff");
 //				tree.insert("iiiiiiiii");
-//				
 //				tree.insert("a");
 //				tree.insert("eeeee");
 //				tree.insert("hhhhhhhh");

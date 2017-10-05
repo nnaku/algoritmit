@@ -9,7 +9,7 @@ O(log n)
 	https://en.wikipedia.org/wiki/Binary_search_algorithmlogaritminen
 		
 O(nlogn)
-	Pikalajittelu ja Lomituslajuttelu
+	Pikalajittelu avg
 	Pikalajittelu on epävakaa lajittelualgoritmi,
 	jossa joukosta valitaan tietty alkio (sarana) vertailukohdaksi.
 	Muut alkiot lajitellaan kahteen ryhmään sarana-alkiota käyttäen,
@@ -31,7 +31,7 @@ O(n3)
 	
 	
 	
-O(vakion)
+O(kn)
 	Eksponentiaalinen algoritmi
 	Eksponentiaalisen algoritmin suoritus voi haarautua joka tiedon kohdalla k osaan.
 	Jos taulukossa on joukko lukuja, on olemassa eksponentiaalinen algoritmi,
