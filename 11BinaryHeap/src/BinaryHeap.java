@@ -3,12 +3,14 @@ public class BinaryHeap {
 	public int size;
 	public int [] mH;
 	public int position;
-        
+    
+	// Alustus.
 	public BinaryHeap(int size){
 		this.size=size;
 		mH = new int [size+1];
 		position = 0;
 	}
+	// Jonon alkioiden sijoittaminen kasaan.
 	public void createHeap(int [] arrA){
 		if(arrA.length>0){
 			for(int i=0;i<arrA.length;i++){ 
@@ -16,12 +18,15 @@ public class BinaryHeap {
 			}
 		}		
 	}
+	// Tulostaa kasan.
 	public void display(){
 		for(int i=1;i<mH.length;i++){
 			System.out.print(" " + mH[i]);			
 		}
 		System.out.println("");
 	}
+	
+	// Tarkastaa onko luku kasan ensimmäinen, Ja pitää kirjaa kasan viimeisestä indeksitä
 	public void insert(int x){ // 1
 		if(position==0){
                         
@@ -35,6 +40,17 @@ public class BinaryHeap {
 		}
                 
 	}
+	
+//  Kasaa kasatessa, alkio sijoitetaan seuraavaan vapaasee (viimeiseen) alkioon.	
+//
+//           ____1____
+//        __2__     __3__
+//       4     5   6     7
+//
+//	Jokaisen alkion indeksi jaettuna kahteen, osoittaa (kokonaisluvulla) tämän alkion vanhempaan.
+//	Tätä hyväksi käyttäen, data kuljetetaan kasan juurta kohti, niin kauan kuin vahemman avain on pienempi.
+//	
+	
 	public void bubbleUp(){
 		int pos = position-1;
                 
@@ -49,6 +65,8 @@ public class BinaryHeap {
 		}
 
 	}
+	
+	// Kasan juuresta poistetaan pienin alkio, ja kasan juureen tuodaan "viimeisin" alkio.
 	public int extractMin(){
 		int min = mH[1];
 		mH[1]=mH[position-1];
@@ -58,7 +76,8 @@ public class BinaryHeap {
 		return min;
 	}
 	
-	public void sinkDown(int k){int a = mH[k];
+	// Kasan juureen tuotu "viimeisin" alkio, "valuu" kasaa alas, niin kauan kun alkion lapselta löytyy pienempi arvo!
+	public void sinkDown(int k){
 		int smallest =k;
 		if(2*k<position && mH[smallest]>mH[2*k]){
 			smallest = 2*k;
@@ -72,6 +91,7 @@ public class BinaryHeap {
 		}
 				
 	}
+	// Jos lapsella pienempi arvo, suoritetaan vaihto!
 	public void swap(int a, int b){
 		//System.out.println("swappinh" + mH[a] + " and " + mH[b]);
 		int temp = mH[a];
